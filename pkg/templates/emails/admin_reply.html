@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Reply from Bolaji</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        background-color: #f4f4f7;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .header {
+        background-color: #1a1a2e;
+        color: #ffffff;
+        padding: 20px;
+        text-align: center;
+        font-size: 24px;
+      }
+      .content {
+        padding: 30px;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+      .reply-section {
+        margin-bottom: 25px;
+      }
+      .original-message {
+        background-color: #f9f9f9;
+        border-left: 4px solid #8e44ad;
+        padding: 15px;
+        margin-top: 20px;
+        font-style: italic;
+        color: #555;
+      }
+      .footer {
+        margin-top: 30px;
+        font-size: 14px;
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">Reply to your inquiry</div>
+      <div class="content">
+        <div class="reply-section">
+          <p>Hi {{ user_name }},</p>
+          {{ reply_body | safe }}
+        </div>
+
+        <div class="original-message">
+          <p>
+            On {{ original_message.timestamp.strftime('%B %d, %Y') if
+            original_message.timestamp else 'a prior date' }}, you wrote:
+          </p>
+          <blockquote>"{{ original_message | truncate(150) }}"</blockquote>
+        </div>
+
+        <div class="footer">
+          <p>Best regards,</p>
+          <p><strong>Bolaji</strong></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

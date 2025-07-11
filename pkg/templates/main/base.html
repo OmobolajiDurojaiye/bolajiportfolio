@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Bolaji{% endblock %}</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Base Stylesheet -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main/base.css') }}"
+    />
+    <!-- Page-specific stylesheets -->
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <!-- Immersive Video Background (shared across pages) -->
+    <div class="video-background-container">
+      <video
+        src="{{ url_for('static', filename='videos/night_sky.mp4') }}"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+      <div class="video-overlay"></div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <header class="main-header">
+      <nav class="navbar">
+        <div class="nav-logo">
+          <a href="{{ url_for('main.landing') }}"
+            >Bolaji<span class="logo-cursor">_</span></a
+          >
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a href="{{ url_for('main.about') }}" class="nav-link">About</a>
+          </li>
+          <li>
+            <a href="{{ url_for('main.portfolio') }}" class="nav-link"
+              >Portfolio</a
+            >
+          </li>
+          <li><a href="#" class="nav-link">Blog</a></li>
+          <li>
+            <a href="{{ url_for('main.contact') }}" class="nav-link">Contact</a>
+          </li>
+        </ul>
+        <div class="nav-actions">
+          <a href="{{ url_for('main.resume') }}" class="nav-button">Resume</a>
+          <button class="hamburger-menu" aria-label="Open navigation menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav-menu">
+      <ul class="mobile-nav-links">
+        <li><a href="{{ url_for('main.about') }}">About</a></li>
+        <li><a href="{{ url_for('main.portfolio') }}">Portfolio</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="{{ url_for('main.contact') }}">Contact</a></li>
+        <li><a href="{{ url_for('main.resume') }}">Resume</a></li>
+      </ul>
+    </div>
+
+    <main class="content-wrapper">{% block content %}{% endblock %}</main>
+
+    <footer class="page-footer">
+      <p>Built with Flask & 💜 by Bolaji © 2025 {#{{ now.year }}#}</p>
+    </footer>
+
+    <!-- Base JS for navbar and animations -->
+    <script src="{{ url_for('static', filename='js/main/base.js') }}"></script>
+    <!-- Page-specific scripts -->
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

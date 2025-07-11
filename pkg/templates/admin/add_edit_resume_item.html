@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} - Admin</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin/dashboard.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin/manage_projects.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="video-background-container">
+      <video
+        src="{{ url_for('static', filename='videos/night_sky.mp4') }}"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+      <div class="video-overlay"></div>
+    </div>
+
+    <header class="dashboard-header">
+      <div class="header-content">
+        <div class="logo">Admin Panel</div>
+        <nav>
+          <a href="{{ url_for('admin.manage_resume') }}" class="nav-link"
+            >← Back to Resume</a
+          >
+          <span class="welcome-message"
+            >Welcome, <strong>{{ g.user.username }}</strong></span
+          >
+          <a href="{{ url_for('admin.logout') }}" class="logout-btn">Logout</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="dashboard-main form-page">
+      <div class="form-container-card">
+        <form id="resume-item-form" method="POST" novalidate>
+          {{ form.hidden_tag() }}
+          <fieldset>
+            <legend>{{ title }}</legend>
+
+            {% for field in form if field.widget.input_type != 'hidden' and
+            field.type != 'SubmitField' %}
+            <div class="form-group">
+              {{ field.label(class="form-label") }} {{ field }} {% if
+              field.errors %} {% for error in field.errors %}
+              <span class="error-text">{{ error }}</span>
+              {% endfor %} {% endif %} {% if field.description %}
+              <small>{{ field.description }}</small>
+              {% endif %}
+            </div>
+            {% endfor %}
+
+            <div class="form-group-submit">{{ form.submit() }}</div>
+          </fieldset>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin/dashboard.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="video-background-container">
+      <video
+        src="{{ url_for('static', filename='videos/night_sky.mp4') }}"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+      <div class="video-overlay"></div>
+    </div>
+
+    <header class="dashboard-header">
+      <div class="header-content">
+        <div class="logo">Admin Panel</div>
+        <nav>
+          <span class="welcome-message"
+            >Welcome, <strong>{{ g.user.username }}</strong></span
+          >
+          <a href="{{ url_for('admin.logout') }}" class="logout-btn">Logout</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="dashboard-main">
+      <div class="flash-messages-container">
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %}
+        <div class="flash-message {{ category }}">{{ message }}</div>
+        {% endfor %} {% endif %} {% endwith %}
+      </div>
+
+      <h1>Dashboard</h1>
+      <p>
+        This is your secure admin area. From here you can manage your portfolio
+        content.
+      </p>
+
+      <section class="controls-grid">
+        <div class="control-card">
+          <h2>Manage Projects</h2>
+          <p>Add, edit, or delete portfolio projects.</p>
+          <a href="{{ url_for('admin.manage_projects') }}" class="card-btn"
+            >Manage Now</a
+          >
+        </div>
+        <div class="control-card">
+          <h2>Manage Resume</h2>
+          <p>Update your professional experience, skills, and education.</p>
+          <a href="{{ url_for('admin.manage_resume') }}" class="card-btn"
+            >Manage Now</a
+          >
+        </div>
+        <div class="control-card">
+          <h2>View Messages</h2>
+          <p>Read and respond to messages from your contact form.</p>
+          <a href="{{ url_for('admin.manage_messages') }}" class="card-btn">
+            Manage Messages {% if g.unread_count > 0 %}
+            <span class="notification-badge">{{ g.unread_count }}</span>
+            {% endif %}
+          </a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

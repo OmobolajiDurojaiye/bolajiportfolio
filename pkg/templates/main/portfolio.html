@@ -1,0 +1,103 @@
+{% extends 'main/base.html' %} {% block title %}Portfolio | Bolaji{% endblock %}
+{% block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/main/portfolio.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="portfolio-container">
+  <header class="portfolio-header reveal">
+    <h1 class="page-title">My Work</h1>
+    <p class="page-subtitle">
+      A collection of projects where I've turned ideas into code. Each one has
+      its own story.
+    </p>
+  </header>
+
+  <main class="portfolio-list">
+    {% if projects %} {% for project in projects %}
+    <article class="project-item reveal">
+      <!-- Left side: Visuals (Thumbnail and Hover-Video) -->
+      <div class="project-visuals">
+        <img
+          class="project-thumbnail"
+          src="{{ project.poster_url }}"
+          alt="{{ project.title }} thumbnail"
+        />
+        <video
+          class="project-video"
+          src="{{ project.video_url }}"
+          loop
+          muted
+          playsinline
+        ></video>
+        <div class="play-indicator">
+          <svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor">
+            <path d="M8 5v14l11-7z"></path>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Right side: Project Details -->
+      <div class="project-details">
+        <header class="project-header">
+          <span class="project-date">{{ project.date.strftime('%B %Y') }}</span>
+          <h2 class="project-title">{{ project.title }}</h2>
+        </header>
+
+        <p class="project-description">{{ project.description }}</p>
+
+        {% if project.tech_tags %}
+        <div class="project-tech-stack">
+          <h4 class="details-subtitle">Tech Stack</h4>
+          <div class="tags-container">
+            {% for tag in project.tech_tags.split(',') %}
+            <span class="tag">{{ tag.strip() }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="project-meta-grid">
+          <div class="meta-item">
+            <strong class="meta-title">Type</strong>
+            <span class="meta-value">{{ project.project_type }}</span>
+          </div>
+          <div class="meta-item">
+            <strong class="meta-title">Role</strong>
+            <span class="meta-value">{{ project.role }}</span>
+          </div>
+          <div class="meta-item">
+            <strong class="meta-title">AI Used</strong>
+            <span class="meta-value"
+              >{% if project.ai_used %}Yes{% else %}No{% endif %}</span
+            >
+          </div>
+        </div>
+
+        <div class="project-links">
+          {% if project.case_study_url and project.case_study_url != '#' %}
+          <a
+            href="{{ project.case_study_url }}"
+            class="project-button primary"
+            target="_blank"
+            rel="noopener noreferrer"
+            >View Project</a
+          >
+          {% endif %} {# Example for a GitHub link - add 'github_url' to your
+          project model #} {# {% if project.github_url %}
+          <a href="{{ project.github_url }}" class="project-button secondary"
+            >View Code</a
+          >
+          {% endif %} #}
+        </div>
+      </div>
+    </article>
+    {% endfor %} {% else %}
+    <p class="no-projects">More projects are on the way. Stay tuned!</p>
+    {% endif %}
+  </main>
+</div>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='js/main/portfolio.js') }}"></script>
+{% endblock %}

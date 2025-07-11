@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Message - Admin</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin/dashboard.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin/manage_messages.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="video-background-container">
+      <video
+        src="{{ url_for('static', filename='videos/night_sky.mp4') }}"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+      <div class="video-overlay"></div>
+    </div>
+    <header class="dashboard-header">
+      <div class="header-content">
+        <div class="logo">Admin Panel</div>
+        <nav>
+          <a href="{{ url_for('admin.dashboard') }}" class="nav-link"
+            >Dashboard</a
+          >
+          <span class="welcome-message"
+            >Welcome, <strong>{{ g.user.username }}</strong></span
+          >
+          <a href="{{ url_for('admin.logout') }}" class="logout-btn">Logout</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="dashboard-main">
+      <div class="view-header">
+        <a href="{{ url_for('admin.manage_messages') }}" class="back-link"
+          >← Back to Inbox</a
+        >
+        <form
+          action="{{ url_for('admin.delete_message', message_id=message.id) }}"
+          method="POST"
+          onsubmit="return confirm('Are you sure you want to delete this message? This cannot be undone.');"
+        >
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <button type="submit" class="btn-delete">Delete Message</button>
+        </form>
+      </div>
+
+      <div class="view-container">
+        <!-- Message Display Card -->
+        <div class="message-display-card">
+          <div class="message-header">
+            <h3>Message from: {{ message.name }}</h3>
+            <p><strong>Email:</strong> {{ message.email }}</p>
+            <p>
+              <strong>Received:</strong> {{ message.timestamp.strftime('%B %d,
+              %Y at %H:%M') }}
+            </p>
+          </div>
+          <div class="message-body">
+            <p>{{ message.message | safe }}</p>
+          </div>
+        </div>
+
+        <!-- Reply Form Card -->
+        <div class="reply-form-card">
+          <h3>Your Reply</h3>
+          <form
+            action="{{ url_for('admin.view_message', message_id=message.id) }}"
+            method="POST"
+          >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <textarea
+              name="reply_body"
+              rows="8"
+              placeholder="Type your response here..."
+              required
+            ></textarea>
+            <button type="submit" class="btn-submit">Send Reply</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

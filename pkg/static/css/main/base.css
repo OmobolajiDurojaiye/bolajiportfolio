@@ -1,0 +1,234 @@
+/* START OF FILE base.css */
+
+/* Consistent theme variables */
+:root {
+  --night-bg: #0a0a10;
+  --glass-bg: rgba(16, 16, 26, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-primary: #e0e0e0;
+  --text-secondary: #8a8a9e;
+  --cosmic-purple: #8e44ad;
+  --cyber-teal: #00e5ff;
+  --accent-glow: rgba(142, 68, 173, 0.5);
+  --header-height: 80px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--night-bg);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+/* Shared Video Background */
+.video-background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.video-background-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(10, 10, 16, 0.3) 0%,
+    rgba(10, 10, 16, 0.9) 80%,
+    var(--night-bg) 100%
+  );
+}
+
+/* Main Header and Navbar */
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: rgba(10, 10, 16, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--glass-border);
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: var(--header-height);
+}
+.nav-logo a {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.nav-logo a:hover {
+  color: var(--cyber-teal);
+}
+.logo-cursor {
+  color: var(--cyber-teal);
+  animation: blink 1.2s infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+}
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+.nav-link:hover {
+  color: var(--text-primary);
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.nav-button {
+  background: var(--cosmic-purple);
+  color: var(--text-primary);
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.nav-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+
+/* Hamburger Menu (Mobile) */
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 28px;
+  height: 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 110;
+}
+.hamburger-line {
+  width: 100%;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 10px;
+  transition: all 0.3s linear;
+}
+
+/* Mobile Navigation Panel */
+.mobile-nav-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 16, 0.95);
+  backdrop-filter: blur(15px);
+  z-index: 99;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.mobile-nav-menu.active {
+  transform: translateY(0);
+}
+.mobile-nav-links {
+  list-style: none;
+  text-align: center;
+}
+.mobile-nav-links li {
+  margin: 25px 0;
+}
+.mobile-nav-links a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.mobile-nav-links a:hover {
+  color: var(--cyber-teal);
+}
+
+/* Main Content Wrapper */
+.content-wrapper {
+  padding-top: var(--header-height);
+}
+
+/* Shared Footer */
+.page-footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-secondary);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+/* Shared Reveal Animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 900px) {
+  .nav-links,
+  .nav-button {
+    display: none;
+  }
+  .hamburger-menu {
+    display: flex;
+  }
+  .mobile-nav-menu {
+    display: flex;
+  }
+}
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 20px;
+  }
+}

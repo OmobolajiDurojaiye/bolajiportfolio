@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ legend }} - Admin</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin/dashboard.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin/manage_projects.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="video-background-container">
+      <video
+        src="{{ url_for('static', filename='videos/night_sky.mp4') }}"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+      <div class="video-overlay"></div>
+    </div>
+
+    <header class="dashboard-header">
+      <div class="header-content">
+        <div class="logo">Admin Panel</div>
+        <nav>
+          <a href="{{ url_for('admin.manage_projects') }}" class="nav-link"
+            >← Back to Projects</a
+          >
+          <a href="{{ url_for('admin.logout') }}" class="logout-btn">Logout</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="dashboard-main form-page">
+      <div class="form-container-card">
+        <form
+          id="project-form"
+          method="POST"
+          action=""
+          novalidate
+          enctype="multipart/form-data"
+        >
+          {{ form.hidden_tag() }}
+          <fieldset>
+            <legend>{{ legend }}</legend>
+
+            <!-- Basic Info -->
+            <div class="form-grid">
+              <div class="form-group span-2">
+                {{ form.title.label }} {{ form.title(class="form-control") }} {%
+                for error in form.title.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                {{ form.date.label }} {{ form.date(class="form-control") }} {%
+                for error in form.date.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="form-group">
+              {{ form.description.label }} {{
+              form.description(class="form-control textarea-large") }} {% for
+              error in form.description.errors %}
+              <span class="error-text">{{ error }}</span>
+              {% endfor %}
+            </div>
+
+            <!-- File Uploads -->
+            <div class="form-grid">
+              <div class="form-group file-upload">
+                {{ form.video.label }} {{ form.video(class="form-control-file")
+                }} {% for error in form.video.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %} {% if project and project.video_filename %}
+                <small class="current-file"
+                  >Current: {{ project.video_filename }}</small
+                >
+                {% endif %}
+              </div>
+              <div class="form-group file-upload">
+                {{ form.poster.label }} {{
+                form.poster(class="form-control-file") }} {% for error in
+                form.poster.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %} {% if project and project.poster_filename %}
+                <small class="current-file"
+                  >Current: {{ project.poster_filename }}</small
+                >
+                <img
+                  src="{{ project.poster_url }}"
+                  alt="Current Poster"
+                  class="current-poster-preview"
+                />
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- Metadata -->
+            <div class="form-grid">
+              <div class="form-group">
+                {{ form.project_type.label }} {{
+                form.project_type(class="form-control") }} {% for error in
+                form.project_type.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                {{ form.role.label }} {{ form.role(class="form-control") }} {%
+                for error in form.role.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                {{ form.tech_tags.label }} {{
+                form.tech_tags(class="form-control", placeholder="e.g.
+                Flask,React,Python") }} {% for error in form.tech_tags.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+            </div>
+
+            <!-- AI Details -->
+            <div class="form-group checkbox-group">
+              {{ form.ai_used() }} {{ form.ai_used.label }}
+            </div>
+            <div class="form-group">
+              {{ form.ai_desc.label }} {{ form.ai_desc(class="form-control",
+              placeholder="e.g. Used GPT-4 for content generation") }} {% for
+              error in form.ai_desc.errors %}
+              <span class="error-text">{{ error }}</span>
+              {% endfor %}
+            </div>
+
+            <!-- Value & Links -->
+            <div class="form-grid">
+              <div class="form-group">
+                {{ form.project_value.label }} {{
+                form.project_value(class="form-control") }} {% for error in
+                form.project_value.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                {{ form.case_study_url.label }} {{
+                form.case_study_url(class="form-control",
+                placeholder="https://...") }} {% for error in
+                form.case_study_url.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+            </div>
+
+            <!-- Collaborators -->
+            <div class="form-group">
+              {{ form.collaborators.label }}
+              <small>{{ form.collaborators.description }}</small>
+              {{ form.collaborators(class="form-control textarea-code") }} {%
+              for error in form.collaborators.errors %}
+              <span class="error-text">{{ error }}</span>
+              {% endfor %}
+            </div>
+          </fieldset>
+
+          <div class="form-group-submit">
+            {{ form.submit(class="btn-submit") }}
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+{% extends 'main/base.html' %} {% block title %}About | Bolaji{% endblock %} {%
+block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/main/about.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="about-container">
+  <!-- Section 1: Introduction -->
+  <section class="about-hero reveal">
+    <div class="hero-text-content">
+      <h1 class="hero-title">Hi, I'm Bolaji –</h1>
+      <h2 class="hero-subtitle">Developer, Creative, Builder.</h2>
+      <p class="hero-bio">
+        Ever since I started my coding journey in 2023, I've been captivated by
+        the power to build ideas into reality. As a night-owl fueled by coffee
+        and curated playlists, I find my creative peak in the quiet hours,
+        crafting digital solutions that are both functional and artistic. My
+        world is a blend of logical structures and inspirations from anime, deep
+        music, and the serene beauty of the color plum.
+      </p>
+    </div>
+    <div class="hero-image-container">
+      <img
+        src="{{ url_for('static', filename='images/hero-img.jpg') }}"
+        alt="A picture of Bolaji"
+        class="hero-image"
+      />
+      <div class="image-glow"></div>
+    </div>
+  </section>
+
+  <!-- Section 2: Skills Overview -->
+  <section class="skills-section reveal">
+    <h2 class="section-title">Core Competencies</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Frontend Development</h3>
+        <p>Building responsive, intuitive, and dynamic user interfaces.</p>
+      </div>
+      <div class="skill-card">
+        <h3>Backend Development</h3>
+        <p>Designing robust server-side logic, APIs, and databases.</p>
+      </div>
+      <div class="skill-card">
+        <h3>Fullstack Solutions</h3>
+        <p>Connecting the front and back ends into seamless applications.</p>
+      </div>
+      <div class="skill-card">
+        <h3>AI Integration</h3>
+        <p>Leveraging AI models and services to build smarter software.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Tech Stack -->
+  <section class="tech-stack-section reveal">
+    <h2 class="section-title">My Tech Arsenal</h2>
+    <div class="tech-grid">
+      <div class="tech-item">Flask</div>
+      <div class="tech-item">Python</div>
+      <div class="tech-item">JavaScript</div>
+      <div class="tech-item">React</div>
+      <div class="tech-item">HTML5 & CSS3</div>
+      <div class="tech-item">MySQL</div>
+      <div class="tech-item">Git & GitHub</div>
+    </div>
+  </section>
+
+  <!-- Section 4: Playlist -->
+  <section class="playlist-section reveal">
+    <h2 class="section-title">
+      <span class="music-icon">🎵</span> Current Coding Playlist
+    </h2>
+    <div class="spotify-embed-container">
+      <iframe
+        style="border-radius: 12px"
+        src="https://open.spotify.com/embed/playlist/6MGNslGjlHlOxX3jQSGjsc?utm_source=generator&theme=0"
+        width="100%"
+        height="352"
+        frameborder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </section>
+</div>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='js/main/about.js') }}"></script>
+{% endblock %}

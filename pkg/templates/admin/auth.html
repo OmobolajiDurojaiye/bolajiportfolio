@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Access</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin/auth.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="video-background-container">
+      <video
+        src="{{ url_for('static', filename='videos/night_sky.mp4') }}"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+      <div class="video-overlay"></div>
+    </div>
+
+    <div class="flash-messages-container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="flash-message {{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %}
+    </div>
+
+    <div class="auth-container" id="auth-container">
+      <!-- Login Form -->
+      <div class="form-container login-container">
+        <form method="POST" action="{{ url_for('admin.auth_page') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <h1>Admin Login</h1>
+          <div class="form-group">
+            <label for="login-username">Username</label>
+            <input
+              type="text"
+              id="login-username"
+              name="username"
+              required
+              autocomplete="username"
+            />
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              required
+              autocomplete="current-password"
+            />
+          </div>
+          <button type="submit" class="submit-btn">Login</button>
+        </form>
+      </div>
+
+      <!-- Signup Form (Conditionally rendered) -->
+      {% if not admin_exists %}
+      <div class="form-container signup-container">
+        <form method="POST" action="{{ url_for('admin.signup') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <h1>Create Admin Account</h1>
+          <span>First-time setup only. Requires owner approval.</span>
+          <div class="form-group">
+            <label for="signup-username">Username</label>
+            <input
+              type="text"
+              id="signup-username"
+              name="username"
+              required
+              autocomplete="username"
+            />
+          </div>
+          <div class="form-group">
+            <label for="signup-email">Your Email</label>
+            <input
+              type="email"
+              id="signup-email"
+              name="email"
+              required
+              autocomplete="email"
+            />
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input
+              type="password"
+              id="signup-password"
+              name="password"
+              minlength="8"
+              required
+              autocomplete="new-password"
+            />
+          </div>
+          <button type="submit" class="submit-btn">
+            Sign Up & Request Code
+          </button>
+        </form>
+      </div>
+      {% endif %}
+
+      <!-- Overlay for Switching -->
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>Welcome Back!</h1>
+            <p>Enter your admin credentials to access the dashboard.</p>
+            <p>
+              {% if not admin_exists %}
+              <button class="ghost-btn" id="loginBtn">Login</button>
+              {% endif %}
+            </p>
+          </div>
+          <div class="overlay-panel overlay-right">
+            {% if not admin_exists %}
+            <h1>First Time Setup?</h1>
+            <p>
+              Create your secure admin account. A verification code will be sent
+              to the site owner for approval.
+            </p>
+            <button class="ghost-btn" id="signupBtn">Sign Up</button>
+            {% else %}
+            <h1>Admin Portal</h1>
+            <p>This is a restricted area. Please log in to continue.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if not admin_exists %}
+    <script src="{{ url_for('static', filename='js/admin/auth.js') }}"></script>
+    {% endif %}
+  </body>
+</html>

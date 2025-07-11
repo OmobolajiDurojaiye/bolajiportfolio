@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Resume - Admin</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin/dashboard.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin/manage_projects.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin/manage_resume.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="video-background-container">
+      <video
+        src="{{ url_for('static', filename='videos/night_sky.mp4') }}"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+      <div class="video-overlay"></div>
+    </div>
+
+    <header class="dashboard-header">
+      <div class="header-content">
+        <div class="logo">Admin Panel</div>
+        <nav>
+          <a href="{{ url_for('admin.dashboard') }}" class="nav-link"
+            >Dashboard</a
+          >
+          <span class="welcome-message"
+            >Welcome, <strong>{{ g.user.username }}</strong></span
+          >
+          <a href="{{ url_for('admin.logout') }}" class="logout-btn">Logout</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="dashboard-main form-page">
+      <div class="flash-messages-container">
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %}
+        <div class="flash-message {{ category }}">{{ message }}</div>
+        {% endfor %} {% endif %} {% endwith %}
+      </div>
+
+      <h1>Manage Resume</h1>
+      <p>Update all sections of your public resume from this page.</p>
+
+      <!-- Profile Section -->
+      <div class="resume-section-card">
+        <h2>Profile Summary & Contact</h2>
+        <form
+          id="profile-form"
+          method="POST"
+          action="{{ url_for('admin.manage_resume') }}"
+        >
+          {{ form.hidden_tag() }}
+          <div class="form-group">
+            {{ form.summary.label }} {{ form.summary }}
+          </div>
+          <div class="form-grid">
+            <div class="form-group">{{ form.phone.label }}{{ form.phone }}</div>
+            <div class="form-group">{{ form.email.label }}{{ form.email }}</div>
+            <div class="form-group">
+              {{ form.location.label }}{{ form.location }}
+            </div>
+          </div>
+          <div class="form-group-submit">
+            {{ form.submit(class="btn-submit") }}
+          </div>
+        </form>
+      </div>
+
+      <!-- Experience Section -->
+      <div class="resume-section-card">
+        <div class="section-header">
+          <h2>Professional Experience</h2>
+          <a
+            href="{{ url_for('admin.add_resume_item', item_type='experience') }}"
+            class="add-new-btn"
+            >+ Add Experience</a
+          >
+        </div>
+        <div class="items-list-container">
+          {% for item in experiences %}
+          <div class="list-item">
+            <div class="item-details">
+              <strong>{{ item.job_title }}</strong> at {{ item.company }}
+              (Order: {{item.display_order}})
+            </div>
+            <div class="action-buttons">
+              <a
+                href="{{ url_for('admin.edit_resume_item', item_type='experience', item_id=item.id) }}"
+                class="btn-edit"
+                >Edit</a
+              >
+              <form
+                action="{{ url_for('admin.delete_resume_item', item_type='experience', item_id=item.id) }}"
+                method="POST"
+                onsubmit="return confirm('Delete this experience?');"
+              >
+                <input
+                  type="hidden"
+                  name="csrf_token"
+                  value="{{ csrf_token() }}"
+                />
+                <button type="submit" class="btn-delete">Delete</button>
+              </form>
+            </div>
+          </div>
+          {% else %}
+          <p class="no-items">No experience items yet.</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Other sections follow the same pattern... -->
+
+      <!-- Education Section -->
+      <div class="resume-section-card">
+        <div class="section-header">
+          <h2>Education & Certifications</h2>
+          <a
+            href="{{ url_for('admin.add_resume_item', item_type='education') }}"
+            class="add-new-btn"
+            >+ Add Education</a
+          >
+        </div>
+        <div class="items-list-container">
+          {% for item in educations %}
+          <div class="list-item">
+            <div class="item-details">
+              <strong>{{ item.degree }}</strong> from {{ item.institution }}
+              (Order: {{item.display_order}})
+            </div>
+            <div class="action-buttons">
+              <a
+                href="{{ url_for('admin.edit_resume_item', item_type='education', item_id=item.id) }}"
+                class="btn-edit"
+                >Edit</a
+              >
+              <form
+                action="{{ url_for('admin.delete_resume_item', item_type='education', item_id=item.id) }}"
+                method="POST"
+                onsubmit="return confirm('Delete this education item?');"
+              >
+                <input
+                  type="hidden"
+                  name="csrf_token"
+                  value="{{ csrf_token() }}"
+                />
+                <button type="submit" class="btn-delete">Delete</button>
+              </form>
+            </div>
+          </div>
+          {% else %}
+          <p class="no-items">No education items yet.</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Skills Section -->
+      <div class="resume-section-card">
+        <div class="section-header">
+          <h2>Technical Skills</h2>
+          <a
+            href="{{ url_for('admin.add_resume_item', item_type='skill') }}"
+            class="add-new-btn"
+            >+ Add Skill</a
+          >
+        </div>
+        <div class="items-list-container">
+          {% for item in skills %}
+          <div class="list-item">
+            <div class="item-details">
+              <strong>{{ item.name }}</strong> (Category: {{ item.category }},
+              Order: {{item.display_order}})
+            </div>
+            <div class="action-buttons">
+              <a
+                href="{{ url_for('admin.edit_resume_item', item_type='skill', item_id=item.id) }}"
+                class="btn-edit"
+                >Edit</a
+              >
+              <form
+                action="{{ url_for('admin.delete_resume_item', item_type='skill', item_id=item.id) }}"
+                method="POST"
+                onsubmit="return confirm('Delete this skill?');"
+              >
+                <input
+                  type="hidden"
+                  name="csrf_token"
+                  value="{{ csrf_token() }}"
+                />
+                <button type="submit" class="btn-delete">Delete</button>
+              </form>
+            </div>
+          </div>
+          {% else %}
+          <p class="no-items">No skills yet.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

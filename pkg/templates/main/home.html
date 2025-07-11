@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bolaji | Developer, Dreamer, Builder</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main/home.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Interactive constellation background -->
+    <canvas id="constellation-canvas"></canvas>
+
+    <!-- Ambient glow effects -->
+    <div class="glow-effects">
+      <div class="glow-orb glow-1"></div>
+      <div class="glow-orb glow-2"></div>
+    </div>
+
+    <!-- Main container -->
+    <div class="container">
+      <!-- Navigation -->
+      <nav class="navbar">
+        <div class="nav-logo">
+          <a href="#">Bolaji<span class="logo-cursor">_</span></a>
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a href="{{ url_for('main.about') }}" class="nav-link">About</a>
+          </li>
+          <li>
+            <a href="{{ url_for('main.portfolio') }}" class="nav-link"
+              >Portfolio</a
+            >
+          </li>
+          <li><a href="#" class="nav-link">Blog</a></li>
+          <li>
+            <a href="{{ url_for('main.contact') }}" class="nav-link">Contact</a>
+          </li>
+        </ul>
+        <a href="{{ url_for('main.resume') }}" class="nav-button">Resume</a>
+      </nav>
+
+      <!-- Hero section -->
+      <section class="hero">
+        <div class="hero-content">
+          <!-- Left side: Hero Text -->
+          <div class="hero-text">
+            <h1 class="hero-title">
+              <span class="title-word">Developer</span>
+              <span class="title-word">Dreamer</span>
+              <span class="title-word">Builder</span>
+            </h1>
+            <p class="hero-subtitle">
+              I craft digital work that blends logic with a touch of soul—code,
+              color, and calm. Welcome to my world.
+            </p>
+          </div>
+
+          <!-- Right side: Code Block -->
+          <div class="code-block-container">
+            <div class="code-block">
+              <div class="code-header">
+                <div class="code-dots">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <span class="code-title">main.py</span>
+              </div>
+              <div class="code-content">
+                <div class="code-line">
+                  <span class="line-number">01</span>
+                  <span class="keyword">class</span>
+                  <span class="class-name">Bolaji</span
+                  ><span class="punctuation">:</span>
+                </div>
+                <div class="code-line">
+                  <span class="line-number">02</span>
+                  <span class="indent"> </span><span class="keyword">def</span>
+                  <span class="function">__init__</span
+                  ><span class="punctuation">(</span
+                  ><span class="keyword">self</span
+                  ><span class="punctuation">):</span>
+                </div>
+                <div class="code-line">
+                  <span class="line-number">03</span>
+                  <span class="indent"> </span><span class="keyword">self</span
+                  ><span class="punctuation">.</span
+                  ><span class="property">role</span>
+                  <span class="operator">=</span>
+                  <span class="string">"Fullstack Developer"</span>
+                </div>
+                <div class="code-line">
+                  <span class="line-number">04</span>
+                  <span class="indent"> </span><span class="keyword">self</span
+                  ><span class="punctuation">.</span
+                  ><span class="property">focus</span>
+                  <span class="operator">=</span>
+                  <span class="string">"Web & AI Integration"</span>
+                </div>
+                <div class="code-line">
+                  <span class="line-number">05</span>
+                  <span class="indent"> </span><span class="keyword">self</span
+                  ><span class="punctuation">.</span
+                  ><span class="property">inspirations</span>
+                  <span class="operator">=</span>
+                  <span class="punctuation">[</span
+                  ><span class="string">"☕"</span
+                  ><span class="punctuation">,</span>
+                  <span class="string">"🎵"</span
+                  ><span class="punctuation">,</span>
+                  <span class="string">"🌌"</span
+                  ><span class="punctuation">,</span>
+                  <span class="string">"🍥"</span
+                  ><span class="punctuation">]</span>
+                </div>
+                <div class="code-line typing-line">
+                  <span class="line-number">06</span>
+                  <span class="indent"> </span><span class="keyword">self</span
+                  ><span class="punctuation">.</span
+                  ><span class="property">ambition</span>
+                  <span class="operator">=</span>
+                  <span class="string">"build_amazing_things()"</span
+                  ><span class="cursor">|</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive scroll indicator -->
+      {#
+      <div class="scroll-indicator">
+        <div class="scroll-text">explore</div>
+        <div class="scroll-line"></div>
+      </div>
+      #}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main/home.js') }}"></script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify Admin Account</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin/auth.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="video-background-container">
+      <video
+        src="{{ url_for('static', filename='videos/night_sky.mp4') }}"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+      <div class="video-overlay"></div>
+    </div>
+
+    <div class="verify-container">
+      <h1>Awaiting Approval</h1>
+      <p>
+        A verification code was sent to the site administrator. Please enter it
+        below to finalize account creation.
+      </p>
+
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="flash-message-verify {{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %}
+
+      <form method="POST" action="{{ url_for('admin.verify') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <div class="form-group">
+          <label for="code">Verification Code</label>
+          <input
+            id="code"
+            type="text"
+            name="code"
+            required
+            maxlength="6"
+            pattern="\d{6}"
+            title="Enter the 6-digit code."
+            autocomplete="one-time-code"
+          />
+        </div>
+        <button type="submit" class="submit-btn">Verify Account</button>
+      </form>
+      <div class="back-link">
+        <a href="{{ url_for('admin.auth_page') }}">Back to Login</a>
+      </div>
+    </div>
+  </body>
+</html>

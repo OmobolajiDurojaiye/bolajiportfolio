@@ -1,0 +1,160 @@
+{% extends 'main/base.html' %} {% block title %}Contact | Bolaji{% endblock %}
+{% block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/main/contact.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="contact-container">
+  <header class="contact-header reveal">
+    <h1 class="page-title">Let's Build Something</h1>
+    <p class="page-subtitle">
+      Have a project, an idea, or just want to chat? Drop me a line.
+    </p>
+  </header>
+
+  <div class="contact-grid">
+    <!-- Left Side: Contact Form -->
+    <div class="contact-form-wrapper reveal">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="flash-message {{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %}
+
+      <form
+        method="POST"
+        action="{{ url_for('main.contact') }}"
+        class="modern-form"
+      >
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+        <div class="form-group-with-icon">
+          <svg class="form-icon" viewBox="0 0 24 24">
+            <path
+              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+            ></path>
+          </svg>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder="Your Name"
+          />
+        </div>
+
+        <div class="form-group-with-icon">
+          <svg class="form-icon" viewBox="0 0 24 24">
+            <path
+              d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+            ></path>
+          </svg>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="Your Email"
+          />
+        </div>
+
+        <div class="form-group-with-icon">
+          <svg class="form-icon" viewBox="0 0 24 24">
+            <path
+              d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"
+            ></path>
+          </svg>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            placeholder="Your Message"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">
+          Send Message
+          <svg class="submit-icon" viewBox="0 0 24 24">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <!-- Right Side: Info Panel -->
+    <div class="info-panel reveal">
+      {#<img
+        src="{{ url_for('static', filename='images/avatar.jpg') }}"
+        alt="Anime avatar"
+        class="avatar-img"
+      />#}
+
+      <div class="info-block">
+        <h4>Or use other channels:</h4>
+        <div class="social-links-grid">
+          <a
+            href="mailto:omobolajidurojaiye57@gmail.com"
+            class="social-button"
+            title="Email"
+            ><svg viewBox="0 0 24 24">
+              <path
+                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+              ></path></svg
+            ><span>Email</span></a
+          >
+          <a
+            href="https://www.linkedin.com/in/omobolaji-durojaiye-527872294/"
+            class="social-button"
+            title="LinkedIn"
+            ><svg viewBox="0 0 24 24">
+              <path
+                d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-7 2h-2v3h2V5m-2 5H8v7h2v-7m4 0h-2v7h2v-7z"
+              ></path></svg
+            ><span>LinkedIn</span></a
+          >
+          <a
+            href="https://github.com/OmobolajiDurojaiye"
+            class="social-button"
+            title="GitHub"
+            ><svg viewBox="0 0 24 24">
+              <path
+                d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69a3.6 3.6 0 0 1 .1-2.64s.84-.27 2.75 1.02a9.58 9.58 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.54 1.32.15 2.4.1 2.64.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.72c0 .27.18.58.69.48A10 10 0 0 0 22 12 10 10 0 0 0 12 2Z"
+              ></path></svg
+            ><span>GitHub</span></a
+          >
+          <a
+            href="https://x.com/OmobolajiDuroj2"
+            class="social-button"
+            title="Twitter"
+            ><svg viewBox="0 0 24 24">
+              <path
+                d="M22.46 6c-.77.35-1.6.58-2.46.67.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98-3.56-.18-6.72-1.89-8.84-4.48-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.22-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21c7.35 0 11.37-6.08 11.37-11.37 0-.17 0-.34-.01-.51.78-.57 1.45-1.28 1.98-2.08z"
+              ></path></svg
+            ><span>X (FKA Twitter)</span></a
+          >
+        </div>
+      </div>
+
+      <div class="info-block qr-section">
+        <div class="qr-card">
+          <img
+            src="{{ url_for('static', filename='images/whatsapp.jpg') }}"
+            alt="WhatsApp QR Code"
+          />
+          <a href="https://wa.me/qr/L2AGWM2UF4BGJ1" target="_blank"
+            >Scan for WhatsApp</a
+          >
+        </div>
+        <div class="qr-card">
+          <img
+            src="{{ url_for('static', filename='images/telegram.jpg') }}"
+            alt="Telegram QR Code"
+          />
+          <a href="https://t.me/bolaji125" target="_blank">Scan for Telegram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,222 @@
+/* --- manage_messages.css --- */
+
+.page-header {
+  margin-bottom: 10px;
+}
+
+.messages-container {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.messages-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-item {
+  display: grid;
+  grid-template-columns: 40px 1fr 2fr 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--glass-border);
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+.message-item:last-child {
+  border-bottom: none;
+}
+.message-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.message-item.unread .sender-name,
+.message-item.unread .message-preview {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--text-secondary);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+.message-item.unread .status-dot {
+  background-color: var(--cyber-teal);
+  opacity: 1;
+  box-shadow: 0 0 8px var(--glow-teal);
+}
+
+.sender-name {
+  color: var(--text-primary);
+}
+.sender-email,
+.message-preview,
+.message-meta {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+.message-meta {
+  font-family: "JetBrains Mono", monospace;
+  text-align: right;
+}
+
+.btn-view {
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  font-weight: 500;
+  transition: all 0.3s;
+}
+.btn-view:hover {
+  background-color: var(--cyber-teal);
+  color: var(--night-bg);
+  border-color: var(--cyber-teal);
+}
+
+.no-items-message {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+}
+
+/* --- View Message Page --- */
+.view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.back-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+}
+.back-link:hover {
+  color: var(--cyber-teal);
+}
+.btn-delete {
+  background: transparent;
+  border: 1px solid var(--notification-red);
+  color: var(--notification-red);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-delete:hover {
+  background-color: var(--notification-red);
+  color: white;
+}
+
+.view-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+.message-display-card,
+.reply-form-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 25px;
+}
+.message-header {
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+.message-header h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+.message-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+.message-body p {
+  line-height: 1.7;
+  white-space: pre-wrap; /* Preserves line breaks from the original message */
+}
+
+.reply-form-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+.reply-form-card textarea {
+  width: 100%;
+  min-height: 150px;
+  resize: vertical;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+.reply-form-card textarea:focus {
+  outline: none;
+  border-color: var(--cyber-teal);
+  box-shadow: 0 0 10px var(--glow-teal);
+}
+.btn-submit {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  background: linear-gradient(90deg, var(--cyber-teal), var(--cosmic-purple));
+  color: white;
+  padding: 12px 28px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(142, 68, 173, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .message-item {
+    grid-template-columns: 40px 1fr auto;
+    gap: 15px;
+  }
+  .message-preview {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    padding-left: 0;
+    margin-top: -10px;
+  }
+}
+@media (max-width: 600px) {
+  .message-item {
+    grid-template-columns: 40px 1fr;
+    row-gap: 5px;
+  }
+  .message-meta {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    text-align: left;
+  }
+  .message-actions {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+  }
+  .btn-view {
+    width: 100%;
+    text-align: center;
+  }
+}

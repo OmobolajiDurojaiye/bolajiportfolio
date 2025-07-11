@@ -1,0 +1,224 @@
+/* START OF FILE portfolio.css */
+
+/* Inherits root variables from base.css */
+
+.portfolio-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 40px;
+}
+
+.portfolio-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.page-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--cyber-teal), var(--cosmic-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.page-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin-top: 10px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.portfolio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+}
+
+.no-projects {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  padding: 50px 0;
+}
+
+.project-item {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+/* Alternate layout for even-numbered projects */
+.project-item:nth-child(even) {
+  grid-template-columns: 1fr 1.2fr;
+}
+.project-item:nth-child(even) .project-visuals {
+  order: 2;
+}
+
+.project-visuals {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #1a1a2e;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.project-item:hover .project-visuals {
+  transform: scale(1.03);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.project-thumbnail,
+.project-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s ease;
+}
+
+.project-video {
+  opacity: 0;
+  z-index: 2;
+}
+.project-item:hover .project-video {
+  opacity: 1;
+}
+
+.play-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 80px;
+  height: 80px;
+  background: rgba(10, 10, 16, 0.7);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.project-item:hover .play-indicator {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.project-details {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.project-header .project-date {
+  font-family: "JetBrains Mono", monospace;
+  color: var(--cyber-teal);
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+.project-header .project-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.project-description {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.details-subtitle {
+  font-family: "JetBrains Mono", monospace;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.tag {
+  background: rgba(0, 229, 255, 0.1);
+  color: var(--cyber-teal);
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.project-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 20px;
+  padding-top: 15px;
+  border-top: 1px solid var(--glass-border);
+}
+.meta-item .meta-title {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.meta-item .meta-value {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.project-links {
+  margin-top: 15px;
+  display: flex;
+  gap: 15px;
+}
+.project-button {
+  display: inline-block;
+  padding: 12px 25px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.project-button.primary {
+  background: var(--cosmic-purple);
+  color: var(--text-primary);
+}
+.project-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px var(--accent-glow);
+}
+
+@media (max-width: 900px) {
+  .project-item,
+  .project-item:nth-child(even) {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .project-item:nth-child(even) .project-visuals {
+    order: 1; /* Reset order for stacked layout */
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolio-container {
+    padding: 40px 20px;
+  }
+  .page-title {
+    font-size: 2.5rem;
+  }
+  .project-header .project-title {
+    font-size: 2rem;
+  }
+}

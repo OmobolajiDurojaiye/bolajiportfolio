@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Message Received</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol";
+        background-color: #f4f4f7;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 40px;
+      }
+      .header {
+        font-size: 24px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 10px;
+      }
+      .content {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #555;
+      }
+      .footer {
+        margin-top: 30px;
+        font-size: 14px;
+        color: #888;
+      }
+      .signature {
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="header">Your message has been received.</h1>
+      <div class="content">
+        <p>Hi {{ name }},</p>
+        <p>
+          Thank you for reaching out! I've successfully received your message
+          and will review it as soon as possible.
+        </p>
+        <p>
+          I appreciate you taking the time to connect. I'll get back to you
+          shortly.
+        </p>
+      </div>
+      <div class="footer">
+        <p>Best regards,</p>
+        <p class="signature">Bolaji</p>
+      </div>
+    </div>
+  </body>
+</html>

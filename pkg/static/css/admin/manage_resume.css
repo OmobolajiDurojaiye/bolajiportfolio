@@ -1,0 +1,61 @@
+/* --- manage_resume.css --- */
+
+.resume-section-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.resume-section-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.section-header h2 {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.items-list-container {
+  margin-top: 20px;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+  transition: background-color 0.3s;
+}
+.list-item:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.item-details {
+  color: var(--text-secondary);
+}
+.item-details strong {
+  color: var(--text-primary);
+}
+
+.no-items {
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 20px 0;
+}
