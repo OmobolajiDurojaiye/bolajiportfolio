@@ -1,0 +1,135 @@
+⚡ 1. Landing Page / Hero Section
+Purpose: Instant vibe + who you are
+
+Name & Title ("Hi, I'm Bolaji – Developer, Creative, Builder.")
+
+Background animation (can reflect anime/night theme)
+
+Short bio or tagline
+
+CTA buttons: View Projects, Read Blog, Contact Me
+
+Ambient audio toggle (maybe soft lo-fi background music?)
+
+Hero image / looping anime-style video
+
+🧬 2. About Me Section
+Purpose: Share your journey and personality
+
+Profile image (maybe illustrated in anime style?)
+
+Bio paragraph (coding journey, interests: coffee, anime, music, etc.)
+
+Skill badges (Frontend, Backend, Database, Flask, etc.)
+
+Tech stack (icons or animated rows)
+
+Fun section: "My current coding playlist" 🎵 or "Dev mode: ON/OFF" with playlist link from spotify (personal account)
+
+🚀 3. Projects Section
+Purpose: Showcase your work visually & in-depth
+
+Grid or card layout with:
+
+Video preview (auto-play on hover)
+
+Title, date, and description
+
+Tags:
+
+Type (Client / Personal / Collaborative)
+
+Tech used (Python, Flask, MySQL, etc.)
+
+Role (Builder, Collaborator, Database Engineer)
+
+AI Used? (Yes / No + short description)
+
+Project Value (charge / market value)
+
+Collaborator links (clickable names/icons)
+
+"View Full Case Study" link (optional)
+
+📒 4. Blog Section
+Purpose: Your writing space — insights, case studies, or guides
+
+Blog post cards with:
+
+Title, date, thumbnail
+
+Tags (tech, topic, type)
+
+Reading method: View Google Doc or internal post
+
+Filter by category or tag (e.g., PR, Dev Logs, Tech Tips)
+
+🛠️ 5. Toolbox / Stack Section
+Purpose: Display the tools and tech you use
+
+Icons for:
+
+Languages (Python, JavaScript)
+
+Frameworks (Flask, MySQL, Chart.js)
+
+Tools (VS Code, Git, Twilio, Paystack)
+
+Design (Figma, Canva)
+
+Could animate with hover interactions or anime-inspired flair
+
+🖼️ 6. Gallery / Vibe Section (Optional but Unique)
+Purpose: Show your personal creative side
+
+A grid of things like:
+
+Anime inspirations
+
+Music you listen to while working
+
+UI moodboards
+
+Dark mode palette showcase
+
+“What fuels my creativity” wall
+
+📞 7. Contact Section
+Purpose: Let visitors reach out easily
+
+Short contact form (name, email, message)
+
+Links to:
+
+Email
+
+Twitter / LinkedIn / GitHub
+
+Optionally, WhatsApp or Telegram
+
+Maybe an anime-style sticker/avatar waving or blinking here
+
+🧾 8. Footer
+Purpose: Wrap-up navigation & credits
+
+Mini nav links (Home, Projects, Blog, Contact)
+
+Copyright
+
+“Built with Flask & ❤️ by Bolaji”
+
+Theme toggle (light/dark)
+
+(Optional) 💼 9. Resume/CV Page
+Purpose: Downloadable resume + timeline of experience
+
+Download PDF
+
+Work history timeline
+
+Education & certifications
+
+Testimonials (from clients/collaborators)
+
+
+write all the codes from start to finish so i can copy and paste, if no changes are made in a file, do not include it, thanks
