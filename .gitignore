@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environment
+venv/
+env/
+.BDevenv/
+.venv/
+
+# Flask instance folder (holds config.py and secrets)
+instance/
+
+# VSCode & PyCharm
+.vscode/
+.idea/
+
+# macOS and system files
+.DS_Store
+Thumbs.db
+
+# Env files or secrets (if any)
+.env
+*.env
+
+# Alembic migration logs (optional if you only want versioned scripts)
+migrations/versions/*.pyc
+migrations/__pycache__/
+
+# Logs
+*.log
+
+# Database (if using local SQLite)
+*.sqlite3
+*.db
+
+# Render & deployment metadata (optional)
+render.yaml
