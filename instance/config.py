@@ -1,15 +1,12 @@
-import os
-
-SECRET_KEY = os.environ.get("SECRET_KEY")
-
-SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+SECRET_KEY = "fbnstgbrynkk665u766564yhhhrsb" 
+SQLALCHEMY_DATABASE_URI="mysql+mysqlconnector://root@127.0.0.1/bdev"
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-MAIL_SERVER = "smtp.gmail.com"
-MAIL_PORT = 465
-MAIL_USE_TLS = False
-MAIL_USE_SSL = True
-MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
-MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+MAIL_SERVER="smtp.gmail.com"
+MAIL_PORT="465"
+MAIL_USE_TLS=False
+MAIL_USE_SSL=True
+MAIL_USERNAME="omobolajidurojaiye57@gmail.com"
+MAIL_PASSWORD = "ldmd usbe efez tjke"
 
-MAIL_DEFAULT_SENDER = ("Bolaji's Portfolio", os.environ.get("MAIL_USERNAME"))
+MAIL_DEFAULT_SENDER = ("Bolaji's Portfolio", "omobolajidurojaiye57@gmail.com")

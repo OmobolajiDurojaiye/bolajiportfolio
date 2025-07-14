@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ legend }} - Admin</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin/dashboard.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin/manage_projects.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin/blog_management.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- TinyMCE - Get your own API key at tiny.cloud -->
+    <script
+      src="https://cdn.tiny.cloud/1/nu4hylakhbx4l7kc8vmmfs55ngo2gxv5vyv469ol66jue606/tinymce/6/tinymce.min.js"
+      referrerpolicy="origin"
+    ></script>
+  </head>
+  <body>
+    <div class="video-background-container">
+      <video
+        src="{{ url_for('static', filename='videos/night_sky.mp4') }}"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+      <div class="video-overlay"></div>
+    </div>
+
+    <header class="dashboard-header">
+      <div class="header-content">
+        <div class="logo">Admin Panel</div>
+        <nav>
+          <a href="{{ url_for('admin.manage_blog') }}" class="nav-link"
+            >← Back to Blog</a
+          >
+          <a href="{{ url_for('admin.logout') }}" class="logout-btn">Logout</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="dashboard-main form-page">
+      <div class="form-container-card">
+        <form
+          id="blog-post-form"
+          method="POST"
+          action=""
+          novalidate
+          enctype="multipart/form-data"
+        >
+          {{ form.hidden_tag() }}
+          <fieldset>
+            <legend>{{ legend }}</legend>
+
+            <!-- Title & Subtitle -->
+            <div class="form-grid">
+              <div class="form-group span-2">
+                {{ form.title.label }} {{ form.title(class="form-control") }} {%
+                for error in form.title.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                {{ form.subtitle.label }} {{ form.subtitle(class="form-control")
+                }} {% for error in form.subtitle.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="form-group">
+              {{ form.content.label }} {{
+              form.content(class="form-control-tinymce", id="content-editor") }}
+              {% for error in form.content.errors %}
+              <span class="error-text">{{ error }}</span>
+              {% endfor %}
+            </div>
+
+            <!-- Thumbnail Upload -->
+            <div class="form-group file-upload">
+              {{ form.thumbnail.label }} {{
+              form.thumbnail(class="form-control-file") }} {% for error in
+              form.thumbnail.errors %}
+              <span class="error-text">{{ error }}</span>
+              {% endfor %} {% if post and post.thumbnail_filename %}
+              <small class="current-file"
+                >Current: {{ post.thumbnail_filename }}</small
+              >
+              <img
+                src="{{ post.thumbnail_url }}"
+                alt="Current Thumbnail"
+                class="current-poster-preview"
+              />
+              {% endif %}
+            </div>
+
+            <!-- Metadata -->
+            <div class="form-grid">
+              <div class="form-group">
+                {{ form.category.label }} {{ form.category(class="form-control")
+                }} {% for error in form.category.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                {{ form.tags.label }} {{ form.tags(class="form-control",
+                placeholder="e.g. flask, python, webdev") }} {% for error in
+                form.tags.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                {{ form.read_time.label }} {{
+                form.read_time(class="form-control", type="number") }} {% for
+                error in form.read_time.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+            </div>
+
+            <!-- SEO & Status -->
+            <div class="form-grid">
+              <div class="form-group">
+                {{ form.status.label }} {{ form.status(class="form-control") }}
+                {% for error in form.status.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                {{ form.slug.label }} {{ form.slug(class="form-control",
+                placeholder="auto-generated-from-title") }} {% for error in
+                form.slug.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="form-group">
+              {{ form.meta_description.label }} {{
+              form.meta_description(class="form-control") }} {% for error in
+              form.meta_description.errors %}
+              <span class="error-text">{{ error }}</span>
+              {% endfor %}
+            </div>
+          </fieldset>
+
+          <div class="form-group-submit">
+            {{ form.submit(class="btn-submit") }}
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/admin/blog_management.js') }}"></script>
+  </body>
+</html>

@@ -7,3 +7,4 @@ from . import auth
 from . import manage_projects
 from . import manage_resume
 from . import manage_messages
+from . import blog_management

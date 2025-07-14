@@ -1,0 +1,69 @@
+{% extends "main/base.html" %} {% block title %}{{ post.title }} | Blog{%
+endblock %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/main/blog.css') }}"
+/>
+{% endblock %} {% block content %}
+<article class="blog-post-article">
+  <!-- Article Header -->
+  <header
+    class="article-header"
+    style="background-image: linear-gradient(rgba(10, 10, 16, 0.7), var(--night-bg)), url('{{ post.thumbnail_url }}');"
+  >
+    <div class="header-content reveal">
+      <span class="card-category category-{{ categories[post.category].color }}"
+        >{{ post.category }}</span
+      >
+      <h1>{{ post.title }}</h1>
+      {% if post.subtitle %}
+      <h2>{{ post.subtitle }}</h2>
+      {% endif %}
+      <div class="article-meta">
+        <span>By {{ post.author }}</span> |
+        <span>Published on {{ post.date_posted.strftime('%B %d, %Y') }}</span>
+        {% if post.read_time %} |
+        <span><i class="far fa-clock"></i> {{ post.read_time }} min read</span>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <!-- Article Body -->
+  <div class="article-body-container">
+    <div class="article-content">{{ post.content | safe }}</div>
+  </div>
+</article>
+
+<!-- Related Articles Section -->
+{% if related_posts %}
+<section class="related-articles-section">
+  <div class="related-container">
+    <h2 class="reveal">Read Next in {{ post.category }}</h2>
+    <div class="blog-grid related-grid">
+      {% for related in related_posts %}
+      <a
+        href="{{ url_for('main.blog_post', slug=related.slug) }}"
+        class="blog-card reveal"
+        data-category="{{ related.category | lower | replace(' ', '-') }}"
+      >
+        <div class="card-thumbnail">
+          <img
+            src="{{ related.thumbnail_url }}"
+            alt="{{ related.title }} thumbnail"
+          />
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-content">
+          <span
+            class="card-category category-{{ categories[related.category].color }}"
+            >{{ related.category }}</span
+          >
+          <h3 class="card-title">{{ related.title }}</h3>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %} {% endblock %}

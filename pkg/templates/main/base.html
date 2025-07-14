@@ -48,7 +48,9 @@
               >Portfolio</a
             >
           </li>
-          <li><a href="#" class="nav-link">Blog</a></li>
+          <li>
+            <a href="{{ url_for('main.blog_index') }}" class="nav-link">Blog</a>
+          </li>
           <li>
             <a href="{{ url_for('main.contact') }}" class="nav-link">Contact</a>
           </li>
@@ -69,7 +71,9 @@
       <ul class="mobile-nav-links">
         <li><a href="{{ url_for('main.about') }}">About</a></li>
         <li><a href="{{ url_for('main.portfolio') }}">Portfolio</a></li>
-        <li><a href="#">Blog</a></li>
+        <li>
+          <a href="{{ url_for('main.blog_index') }}">Blog</a>
+        </li>
         <li><a href="{{ url_for('main.contact') }}">Contact</a></li>
         <li><a href="{{ url_for('main.resume') }}">Resume</a></li>
       </ul>

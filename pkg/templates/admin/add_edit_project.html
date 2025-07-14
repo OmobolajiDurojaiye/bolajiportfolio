@@ -144,12 +144,38 @@
               {% endfor %}
             </div>
 
-            <!-- Value & Links -->
+            <!-- Additional Details -->
             <div class="form-grid">
               <div class="form-group">
-                {{ form.project_value.label }} {{
-                form.project_value(class="form-control") }} {% for error in
-                form.project_value.errors %}
+                {{ form.cost.label }} {{ form.cost(class="form-control",
+                placeholder="e.g., $5,000, Pro Bono") }} {% for error in
+                form.cost.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                {{ form.client_name.label }} {{
+                form.client_name(class="form-control", placeholder="e.g., Acme
+                Corp") }} {% for error in form.client_name.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+            </div>
+
+            <!-- Project Links -->
+            <div class="form-grid">
+              <div class="form-group">
+                {{ form.live_url.label }} {{ form.live_url(class="form-control",
+                placeholder="https://...") }} {% for error in
+                form.live_url.errors %}
+                <span class="error-text">{{ error }}</span>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                {{ form.github_url.label }} {{
+                form.github_url(class="form-control",
+                placeholder="https://github.com/...") }} {% for error in
+                form.github_url.errors %}
                 <span class="error-text">{{ error }}</span>
                 {% endfor %}
               </div>
@@ -161,16 +187,6 @@
                 <span class="error-text">{{ error }}</span>
                 {% endfor %}
               </div>
-            </div>
-
-            <!-- Collaborators -->
-            <div class="form-group">
-              {{ form.collaborators.label }}
-              <small>{{ form.collaborators.description }}</small>
-              {{ form.collaborators(class="form-control textarea-code") }} {%
-              for error in form.collaborators.errors %}
-              <span class="error-text">{{ error }}</span>
-              {% endfor %}
             </div>
           </fieldset>
 

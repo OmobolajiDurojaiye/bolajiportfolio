@@ -1,7 +1,3 @@
-/* START OF FILE portfolio.css */
-
-/* Inherits root variables from base.css */
-
 .portfolio-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -161,7 +157,7 @@
 .project-meta-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 20px;
+  gap: 20px 30px;
   padding-top: 15px;
   border-top: 1px solid var(--glass-border);
 }
@@ -171,6 +167,8 @@
   font-size: 0.8rem;
   font-weight: 500;
   margin-bottom: 5px;
+  text-transform: uppercase;
+  font-family: "JetBrains Mono", monospace;
 }
 .meta-item .meta-value {
   color: var(--text-primary);
@@ -178,26 +176,62 @@
   font-weight: 600;
 }
 
+/* --- UPDATED STYLES FOR PROJECT LINKS --- */
 .project-links {
   margin-top: 15px;
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
 }
 .project-button {
-  display: inline-block;
-  padding: 12px 25px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 25px;
   border-radius: 25px;
   text-decoration: none;
+  font-family: "JetBrains Mono", monospace;
   font-weight: 600;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+.project-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px var(--accent-glow);
 }
 .project-button.primary {
   background: var(--cosmic-purple);
   color: var(--text-primary);
 }
-.project-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px var(--accent-glow);
+.project-button.primary:hover {
+  box-shadow: 0 10px 20px rgba(142, 68, 173, 0.4);
+}
+.project-button.secondary {
+  background: transparent;
+  border-color: var(--text-secondary);
+  color: var(--text-secondary);
+}
+.project-button.secondary:hover {
+  border-color: var(--cyber-teal);
+  color: var(--cyber-teal);
+  background-color: rgba(0, 229, 255, 0.1);
+  box-shadow: 0 8px 15px rgba(0, 229, 255, 0.2);
+}
+.project-button.tertiary {
+  background: transparent;
+  border-color: var(--cyber-teal);
+  color: var(--cyber-teal);
+}
+.project-button.tertiary:hover {
+  border-color: #fff;
+  color: #fff;
+  background-color: rgba(0, 229, 255, 0.15);
+  box-shadow: 0 8px 15px rgba(0, 229, 255, 0.25);
+}
+.project-button svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
 }
 
 @media (max-width: 900px) {

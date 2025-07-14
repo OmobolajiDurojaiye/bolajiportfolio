@@ -1,0 +1,46 @@
+/* --- blog_management.css --- */
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status-published {
+  background-color: var(--success-bg);
+  color: var(--success-border);
+}
+
+.status-draft {
+  background-color: var(--info-bg);
+  color: var(--info-border);
+}
+
+/* Make TinyMCE fit the theme */
+.tox-tinymce {
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 6px !important;
+}
+.tox .tox-edit-area__iframe {
+  background-color: rgba(0, 0, 0, 0.25) !important;
+}
+.tox .tox-editor-header {
+  background-color: var(--glass-bg) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+.tox .tox-tbtn,
+.tox .tox-tbtn svg {
+  fill: var(--text-secondary) !important;
+  color: var(--text-secondary) !important;
+}
+.tox .tox-tbtn:hover,
+.tox .tox-tbtn--enabled {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+.tox .tox-tbtn--enabled svg,
+.tox .tox-tbtn--enabled {
+  fill: var(--cyber-teal) !important;
+  color: var(--cyber-teal) !important;
+}

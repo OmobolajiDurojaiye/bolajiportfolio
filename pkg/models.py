@@ -1,8 +1,9 @@
 from flask import url_for
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import event, JSON, Text
 from datetime import datetime, date as dt_date
 from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy import JSON, Text
+from slugify import slugify
 
 db = SQLAlchemy()
 
@@ -23,10 +24,12 @@ class Project(db.Model):
     ai_used = db.Column(db.Boolean, default=False, nullable=False)
     ai_desc = db.Column(db.String(255), nullable=True)
     
-    project_value = db.Column(db.String(100), nullable=True)
+    # --- NEW & UPDATED FIELDS ---
+    cost = db.Column(db.String(100), nullable=True)
+    client_name = db.Column(db.String(100), nullable=True)
     case_study_url = db.Column(db.String(255), nullable=True)
-    
-    collaborators = db.Column(JSON, nullable=True)
+    live_url = db.Column(db.String(255), nullable=True)
+    github_url = db.Column(db.String(255), nullable=True)
     
     @property
     def video_url(self):
@@ -43,7 +46,50 @@ class Project(db.Model):
     def __repr__(self):
         return f'<Project {self.title}>'
 
-# --- NEW MODEL FOR CONTACT MESSAGES ---
+# --- NEW MODEL FOR BLOG POSTS ---
+class BlogPost(db.Model):
+    __tablename__ = 'blog_posts'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(150), nullable=False)
+    subtitle = db.Column(db.String(200), nullable=True)
+    slug = db.Column(db.String(150), unique=True, nullable=False)
+    content = db.Column(Text, nullable=False)
+    
+    thumbnail_filename = db.Column(db.String(255), nullable=True)
+    
+    category = db.Column(db.String(50), nullable=False)
+    tags = db.Column(db.String(255), nullable=True)
+    
+    author = db.Column(db.String(100), nullable=False, default='Bolaji')
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    
+    read_time = db.Column(db.Integer, nullable=True) # in minutes
+    status = db.Column(db.String(20), nullable=False, default='Draft') # Draft or Published
+    
+    meta_description = db.Column(db.String(160), nullable=True)
+
+    @property
+    def thumbnail_url(self):
+        if self.thumbnail_filename:
+            return url_for('static', filename=f'uploads/image/{self.thumbnail_filename}', _external=True)
+        return url_for('static', filename='images/default_blog_thumb.jpg', _external=True) # Add a default thumbnail
+
+    def __repr__(self):
+        return f'<BlogPost {self.title}>'
+
+# Auto-generate slug from title before committing
+@event.listens_for(BlogPost, 'before_insert')
+def receive_before_insert(mapper, connection, target):
+    if target.title and not target.slug:
+        # Create a unique slug
+        base_slug = slugify(target.title)
+        unique_slug = base_slug
+        count = 1
+        while BlogPost.query.filter_by(slug=unique_slug).first():
+            unique_slug = f"{base_slug}-{count}"
+            count += 1
+        target.slug = unique_slug
+
 class ContactSubmission(db.Model):
     __tablename__ = 'contact_submissions'
     id = db.Column(db.Integer, primary_key=True)

@@ -1,5 +1,4 @@
 import os
-import json
 from flask import render_template, request, flash, redirect, url_for, current_app
 from werkzeug.utils import secure_filename
 from flask_wtf import FlaskForm
@@ -36,13 +35,12 @@ class ProjectForm(FlaskForm):
     ai_used = BooleanField('AI Was Used in this Project')
     ai_desc = StringField('How was AI used?', validators=[Optional(), Length(max=255)])
     
-    project_value = StringField('Project Value (e.g., $5,000 or Market Value)', validators=[Optional(), Length(max=100)])
-    case_study_url = StringField('Full Case Study URL', validators=[Optional(), URL()])
-    
-    collaborators = TextAreaField('Collaborators (JSON format)', 
-        description="Enter as a JSON list, e.g., [{\"name\": \"John Doe\", \"link\": \"https://...\"}]",
-        validators=[Optional()]
-    )
+    # --- NEW & UPDATED FIELDS ---
+    cost = StringField('Project Cost / Value', validators=[Optional(), Length(max=100)])
+    client_name = StringField('Client Name (if applicable)', validators=[Optional(), Length(max=100)])
+    live_url = StringField('Live Project URL', validators=[Optional(), URL()])
+    github_url = StringField('GitHub Repository URL', validators=[Optional(), URL()])
+    case_study_url = StringField('Case Study URL', validators=[Optional(), URL()])
     
     submit = SubmitField('Save Project')
 
@@ -88,15 +86,6 @@ def add_project():
         video_filename = save_file(form.video.data, current_app.config['UPLOAD_FOLDER_VIDEO'])
         poster_filename = save_file(form.poster.data, current_app.config['UPLOAD_FOLDER_IMAGE'])
 
-        # Handle collaborators JSON
-        collaborators_json = None
-        if form.collaborators.data:
-            try:
-                collaborators_json = json.loads(form.collaborators.data)
-            except json.JSONDecodeError:
-                flash('Invalid JSON format for collaborators. Please correct it.', 'error')
-                return render_template('admin/add_edit_project.html', form=form, legend='Add New Project')
-
         # Create new project instance
         new_project = Project(
             title=form.title.data,
@@ -109,9 +98,11 @@ def add_project():
             role=form.role.data,
             ai_used=form.ai_used.data,
             ai_desc=form.ai_desc.data,
-            project_value=form.project_value.data,
-            case_study_url=form.case_study_url.data,
-            collaborators=collaborators_json
+            cost=form.cost.data,
+            client_name=form.client_name.data,
+            live_url=form.live_url.data,
+            github_url=form.github_url.data,
+            case_study_url=form.case_study_url.data
         )
         db.session.add(new_project)
         db.session.commit()
@@ -142,17 +133,7 @@ def edit_project(project_id):
             delete_file(project.poster_filename, current_app.config['UPLOAD_FOLDER_IMAGE'])
             project.poster_filename = save_file(form.poster.data, current_app.config['UPLOAD_FOLDER_IMAGE'])
 
-        # Handle collaborators JSON
-        if form.collaborators.data:
-            try:
-                project.collaborators = json.loads(form.collaborators.data)
-            except json.JSONDecodeError:
-                flash('Invalid JSON format for collaborators. Please correct it.', 'error')
-                return render_template('admin/add_edit_project.html', form=form, legend=f'Edit "{project.title}"', project=project)
-        else:
-            project.collaborators = None
-
-        # Update other fields from form
+        # Update fields from form
         project.title = form.title.data
         project.date = form.date.data
         project.description = form.description.data
@@ -161,16 +142,15 @@ def edit_project(project_id):
         project.role = form.role.data
         project.ai_used = form.ai_used.data
         project.ai_desc = form.ai_desc.data
-        project.project_value = form.project_value.data
+        project.cost = form.cost.data
+        project.client_name = form.client_name.data
+        project.live_url = form.live_url.data
+        project.github_url = form.github_url.data
         project.case_study_url = form.case_study_url.data
 
         db.session.commit()
         flash('Project has been successfully updated!', 'success')
         return redirect(url_for('admin.manage_projects'))
-
-    # Pre-populate collaborators textarea with formatted JSON
-    if project.collaborators:
-        form.collaborators.data = json.dumps(project.collaborators, indent=2)
 
     return render_template('admin/add_edit_project.html', form=form, legend=f'Edit "{project.title}"', project=project)
 

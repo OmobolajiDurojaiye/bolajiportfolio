@@ -1,0 +1,77 @@
+{% extends "main/base.html" %} {% block title %}Blog | {{ super() }}{% endblock
+%} {% block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/main/blog.css') }}"
+/>
+<!-- Font Awesome for icons -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+/>
+{% endblock %} {% block content %}
+<section class="blog-hero">
+  <div class="hero-content">
+    <h1 class="reveal">The Bolaji Blog</h1>
+    <p class="reveal">
+      Exploring frontiers in technology, creativity, and conservation.
+    </p>
+  </div>
+</section>
+
+<div class="blog-container">
+  <!-- Category Filters -->
+  <nav class="category-filters reveal">
+    <button class="filter-pill active" data-filter="all">All</button>
+    {% for name, data in categories.items() %}
+    <button
+      class="filter-pill"
+      data-filter="{{ name | lower | replace(' ', '-') }}"
+    >
+      {{ name }}
+    </button>
+    {% endfor %}
+  </nav>
+
+  <!-- Blog Post Grid -->
+  <div class="blog-grid">
+    {% for post in posts %}
+    <a
+      href="{{ url_for('main.blog_post', slug=post.slug) }}"
+      class="blog-card reveal"
+      data-category="{{ post.category | lower | replace(' ', '-') }}"
+    >
+      <div class="card-thumbnail">
+        <img src="{{ post.thumbnail_url }}" alt="{{ post.title }} thumbnail" />
+        <div class="card-overlay"></div>
+      </div>
+      <div class="card-content">
+        <span
+          class="card-category category-{{ categories[post.category].color }}"
+          >{{ post.category }}</span
+        >
+        <h3 class="card-title">{{ post.title }}</h3>
+        <p class="card-snippet">
+          {{ post.subtitle or post.meta_description or (post.content | striptags
+          | truncate(100)) }}
+        </p>
+        <div class="card-footer">
+          <span>{{ post.date_posted.strftime('%B %d, %Y') }}</span>
+          {% if post.read_time %}
+          <span>• {{ post.read_time }} min read</span>
+          {% endif %}
+        </div>
+      </div>
+    </a>
+    {% else %}
+    <p class="no-posts-message">
+      No posts have been published yet. Check back soon!
+    </p>
+    {% endfor %}
+  </div>
+
+  <!-- Future Load More button can go here -->
+</div>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='js/main/blog.js') }}"></script>
+{% endblock %}
