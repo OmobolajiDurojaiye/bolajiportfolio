@@ -8,7 +8,7 @@ __pycache__/
 # Virtual environment
 venv/
 env/
-.BDevenv/
+BDevenv/
 .venv/
 
 # Flask instance folder (holds config.py and secrets)
@@ -36,6 +36,3 @@ migrations/__pycache__/
 # Database (if using local SQLite)
 *.sqlite3
 *.db
-
-# Render & deployment metadata (optional)
-render.yaml
